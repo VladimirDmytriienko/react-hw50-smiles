@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Participant from "./Participant";
+
 function Plus() {
   const [votes, setVotes] = useState([0, 0, 0]);
 
@@ -30,22 +32,17 @@ function Plus() {
 
   return (
     <div>
-      <div>
-        <p>😃 {votes[0]}</p>
-        <button onClick={() => handleVote(0)}>Голосовать</button>
-      </div>
-      <div>
-        <p>🚀 {votes[1]}</p>
-        <button onClick={() => handleVote(1)}>Голосовать</button>
-      </div>
-      <div>
-        <p>🦁 {votes[2]}</p>
-        <button onClick={() => handleVote(2)}>Голосовать</button>
-      </div>
+      {votes.map((vote, index) => (
+        <Participant
+          key={index}
+          emoji={index === 0 ? "😃" : index === 1 ? "🚀" : "🦁"}
+          votes={vote}
+          handleVote={() => handleVote(index)}
+        />
+      ))}
       <button onClick={() => alert(`Победитель: ${getWinner()}`)}>Показать результаты</button>
     </div>
   );
 }
 
-
-export default Plus
+export default Plus;
