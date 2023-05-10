@@ -16,9 +16,11 @@ class Smiles extends Component {
   }
 
   biggestCount() {
-    const counts = this.state.smiles.map((smile) => smile.count);
-    const maxCount = Math.max(...counts);
-    alert(maxCount);
+    const maxCount = Math.max(...this.state.smiles.map(smile => smile.count));
+    const smileWithMaxCount = this.state.smiles.find(smile => smile.count === maxCount);
+    if (smileWithMaxCount) {
+      alert(`Лайки: ${maxCount}\nСмайл: ${smileWithMaxCount.title}`);
+    }
   }
 
   incrementCount(id) {
