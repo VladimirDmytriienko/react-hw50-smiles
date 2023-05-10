@@ -1,12 +1,9 @@
-import Plus from "./components/Plus";
+import Smiles from "./components/Smiles";
 
 function App() {
   return (
     <div className="App">
-     <Plus />
-
-
-     
+      <Smiles/>     
     </div>
   );
 }
