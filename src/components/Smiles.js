@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PostItem from "./PostItem";
+
 
 class Smiles extends Component {
   constructor(props) {
