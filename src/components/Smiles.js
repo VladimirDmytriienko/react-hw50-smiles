@@ -1,54 +1,50 @@
-import { useState } from "react";
+import React, { Component } from "react";
 import PostItem from "./PostItem";
 
+class Smiles extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      smiles: [
+        { id: 1, title: "😃", count: 0 },
+        { id: 2, title: "🚀", count: 0 },
+        { id: 3, title: "🦁", count: 0 },
+      ],
+    };
+    this.biggestCount = this.biggestCount.bind(this);
+    this.incrementCount = this.incrementCount.bind(this);
+  }
 
-function Smiles() {
-  const [smiles, setSmiles] = useState([
-    { id: 1, title: "😃", count: 0 },
-    { id: 2, title: "🚀", count: 0 },
-    { id: 3, title: "🦁", count: 0 },
-  ]);
+  biggestCount() {
+    const counts = this.state.smiles.map((smile) => smile.count);
+    const maxCount = Math.max(...counts);
+    alert(maxCount);
+  }
 
-  const handleSmileClick = (id) => {
-    const updatedSmiles = smiles.map((smile) => {
+  incrementCount(id) {
+    const updatedSmiles = this.state.smiles.map((smile) => {
       if (smile.id === id) {
-        return {
-          ...smile,
-          count: smile.count + 1,
-        };
+        return { ...smile, count: smile.count + 1 };
       }
       return smile;
     });
 
-    setSmiles(updatedSmiles);
-  };
+    this.setState({ smiles: updatedSmiles });
+  }
 
-  const maxCountElement = smiles.reduce((maxElement, currentElement) => {
-    if (currentElement.count > maxElement.count) {
-      return currentElement;
-    } else {
-      return maxElement;
-    }
-  });
-
-  const handleMaxCountClick = () => {
-    alert(maxCountElement.title);
-  };
-
-  return (
-    <div>
+  render() {
+    return (
       <div>
-        {smiles.map((smile) => (
-          <div key={smile.id} onClick={() => handleSmileClick(smile.id)}>
-            <PostItem post={smile} />
+        {this.state.smiles.map((i) => (
+          <div key={i.id}>
+            <p onClick={() => this.incrementCount(i.id)}>{i.title}</p>
+            <span onClick={() => this.incrementCount(i.id)}>{i.count}</span>
           </div>
         ))}
+        <button onClick={this.biggestCount}>biggestCount</button>
       </div>
-      <button onClick={handleMaxCountClick}>
-        Смайлик с наибольшим каунтом
-      </button>
-    </div>
-  );
+    );
+  }
 }
 
 export default Smiles;
